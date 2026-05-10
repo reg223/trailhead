@@ -23,6 +23,8 @@
   "dependencies": {
     "compromise": "^14.15.0",
     "flexsearch": "^0.8.212",
-    "idb": "^8.0.3"
+    "idb": "^8.0.3",
+    "katex": "^0.16.45",
+    "pdfjs-dist": "^5.7.284"
   }
 }

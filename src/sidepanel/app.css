@@ -50,6 +50,13 @@ button.ghost {
   color: var(--text);
 }
 
+button.ghost[aria-expanded="true"],
+button.ghost[aria-pressed="true"],
+.menu-trigger[aria-expanded="true"] {
+  background: var(--accent);
+  color: #fff;
+}
+
 button.danger {
   background: var(--danger-soft);
   color: var(--danger);
@@ -82,21 +89,48 @@ a {
 
 .trailhead-shell {
   display: grid;
-  grid-template-columns: minmax(150px, 34%) 1fr;
+  grid-template-columns: minmax(150px, 34%) 18px 1fr;
   height: 100svh;
   min-height: 0;
   overflow: hidden;
 }
 
+.trailhead-shell.session-collapsed {
+  grid-template-columns: 0 18px 1fr;
+}
+
 .session-rail {
-  display: grid;
-  grid-template-rows: auto auto minmax(0, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   border-right: 1px solid var(--border);
   background: var(--panel-strong);
   padding: 12px;
   min-height: 0;
   overflow: hidden;
+}
+
+.session-collapsed .session-rail {
+  border-right: 0;
+  padding: 0;
+  visibility: hidden;
+}
+
+.rail-toggle {
+  align-self: stretch;
+  min-height: 0;
+  width: 18px;
+  border-radius: 0;
+  border-right: 1px solid var(--border);
+  background: var(--panel-strong);
+  color: var(--muted);
+  font-size: 12px;
+  padding: 0;
+}
+
+.rail-toggle[aria-expanded="false"] {
+  background: var(--accent);
+  color: #fff;
 }
 
 .session-rail header,
@@ -151,6 +185,7 @@ small,
 
 .session-list {
   align-content: start;
+  flex: 1 1 auto;
   grid-auto-rows: max-content;
   min-height: 0;
   overflow: auto;
@@ -252,9 +287,8 @@ small,
 }
 
 .workspace {
-  display: grid;
-  grid-template-rows: auto auto auto minmax(0, 1fr);
-  align-content: start;
+  display: flex;
+  flex-direction: column;
   gap: 12px;
   padding: 14px;
   min-height: 0;
@@ -329,6 +363,7 @@ small,
 }
 
 .snippet-list {
+  flex: 1 1 auto;
   min-height: 0;
   overflow: auto;
   padding-right: 2px;
@@ -345,6 +380,32 @@ small,
   color: #4b463f;
   padding-left: 8px;
   overflow-wrap: anywhere;
+}
+
+.rendered-text {
+  display: block;
+}
+
+.screenshot-preview,
+.snippet-image {
+  display: grid;
+  gap: 8px;
+}
+
+.screenshot-preview img,
+.snippet-image img {
+  width: 100%;
+  max-height: 240px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  object-fit: contain;
+  background: #fff;
+}
+
+.form-error {
+  color: var(--danger);
+  font-size: 12px;
+  font-weight: 700;
 }
 
 .citation-missing {
@@ -391,6 +452,60 @@ small,
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: 6px;
+}
+
+.graph-view {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 10px;
+}
+
+.graph-view svg {
+  width: 100%;
+  min-height: 270px;
+}
+
+.graph-view line {
+  stroke: rgba(50, 109, 120, 0.38);
+}
+
+.graph-view circle {
+  fill: var(--accent);
+}
+
+.graph-view text {
+  fill: #fff;
+  font-size: 12px;
+  font-weight: 800;
+  text-anchor: middle;
+}
+
+.graph-view ol {
+  display: grid;
+  gap: 5px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.graph-view li {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.graph-view li span {
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: #194d57;
+  font-weight: 800;
+  text-align: center;
 }
 
 .empty-state {

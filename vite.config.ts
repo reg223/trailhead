@@ -15,8 +15,15 @@ const manifest = defineManifest({
   side_panel: {
     default_path: 'src/sidepanel/index.html',
   },
-  permissions: ['sidePanel', 'contextMenus', 'storage', 'activeTab', 'clipboardWrite'],
-  host_permissions: ['https://arxiv.org/*'],
+  permissions: ['sidePanel', 'contextMenus', 'storage', 'activeTab', 'scripting', 'clipboardWrite'],
+  host_permissions: [
+    'https://arxiv.org/*',
+    'https://doi.org/*',
+    'https://ieeexplore.ieee.org/*',
+    'https://dl.acm.org/*',
+    'https://pubmed.ncbi.nlm.nih.gov/*',
+    'https://*.ncbi.nlm.nih.gov/*'
+  ],
   action: {
     default_title: 'Click to open Trailhead',
   },

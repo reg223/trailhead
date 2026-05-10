@@ -13,6 +13,9 @@ export interface TrailheadEntry {
   url: string;
   text: string;
   note: string;
+  kind: 'text' | 'screenshot';
+  screenshotDataUrl: string;
+  screenshotMimeType: string;
   citation: string;
   needsCitation: boolean;
   keywords: string[];
@@ -34,8 +37,10 @@ export interface TrailheadDB extends DBSchema {
 
 export const DEFAULT_SESSION_ID = 'default-session';
 export const NOTE_LIMIT = 150;
+export const SCREENSHOT_MAX_BYTES = 1024 * 1024;
+export const SCREENSHOT_MAX_DIMENSION = 1600;
 
-export const dbPromise = openDB<TrailheadDB>('trailhead-db', 4, {
+export const dbPromise = openDB<TrailheadDB>('trailhead-db', 5, {
   upgrade(db, _oldVersion, _newVersion, transaction) {
     if (!db.objectStoreNames.contains('sessions')) {
       db.createObjectStore('sessions', { keyPath: 'id' });
