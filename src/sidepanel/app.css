@@ -1,0 +1,417 @@
+:root {
+  --bg: #f7f5f1;
+  --panel: #ffffff;
+  --panel-strong: #f0ebe3;
+  --text: #23201d;
+  --muted: #746d64;
+  --border: #ddd6cc;
+  --accent: #326d78;
+  --accent-soft: #d9ecef;
+  --danger: #a33a35;
+  --danger-soft: #f5dfdd;
+  font: 14px/1.45 Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: var(--text);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+button {
+  border: 0;
+  border-radius: 6px;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  font-weight: 650;
+  min-height: 32px;
+  padding: 6px 10px;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}
+
+button.ghost {
+  background: var(--panel-strong);
+  color: var(--text);
+}
+
+button.danger {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--text);
+  padding: 8px 9px;
+}
+
+textarea {
+  resize: vertical;
+}
+
+a {
+  color: var(--accent);
+  font-weight: 650;
+  text-decoration: none;
+}
+
+#app {
+  height: 100svh;
+  overflow: hidden;
+}
+
+.trailhead-shell {
+  display: grid;
+  grid-template-columns: minmax(150px, 34%) 1fr;
+  height: 100svh;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.session-rail {
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr);
+  gap: 12px;
+  border-right: 1px solid var(--border);
+  background: var(--panel-strong);
+  padding: 12px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.session-rail header,
+.workspace-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-size: 21px;
+  line-height: 1;
+}
+
+h2 {
+  font-size: 20px;
+  line-height: 1.15;
+}
+
+h3 {
+  font-size: 16px;
+}
+
+.session-rail header p,
+.workspace-header p,
+.snippet-footer,
+small,
+.eyebrow {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.session-form,
+.snippet-form,
+.session-list,
+.snippet-list {
+  display: grid;
+  gap: 10px;
+}
+
+.session-form {
+  margin: 0;
+}
+
+.session-list {
+  align-content: start;
+  grid-auto-rows: max-content;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.session-item,
+.snippet-card,
+.snippet-form,
+.empty-state {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 10px;
+}
+
+.session-item {
+  display: grid;
+  gap: 7px;
+  padding: 8px;
+}
+
+.session-item.active {
+  border-color: var(--accent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+
+.session-pick {
+  display: grid;
+  width: 100%;
+  height: 28px;
+  min-height: 0;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--text);
+  text-align: left;
+}
+
+.session-pick span {
+  font-weight: 750;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.session-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 28px;
+  gap: 6px;
+  align-items: start;
+  min-height: 28px;
+}
+
+.session-actions,
+.snippet-menu-wrap {
+  position: relative;
+}
+
+.menu-trigger {
+  width: 28px;
+  min-height: 28px;
+  padding: 0;
+  background: var(--panel-strong);
+  color: var(--muted);
+  line-height: 1;
+}
+
+.session-menu,
+.snippet-menu {
+  position: absolute;
+  top: 32px;
+  right: 0;
+  z-index: 5;
+  display: grid;
+  gap: 5px;
+  min-width: 84px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  box-shadow: 0 10px 22px rgba(35, 32, 29, 0.14);
+  padding: 6px;
+}
+
+.snippet-menu {
+  min-width: 126px;
+}
+
+.session-menu button,
+.snippet-menu button {
+  justify-content: start;
+  width: 100%;
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-rows: auto auto auto minmax(0, 1fr);
+  align-content: start;
+  gap: 12px;
+  padding: 14px;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.workspace-header {
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+
+.workspace-header span {
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: #194d57;
+  font-size: 12px;
+  font-weight: 750;
+  padding: 4px 8px;
+  white-space: nowrap;
+}
+
+.workspace-actions {
+  display: grid;
+  justify-items: end;
+  gap: 6px;
+}
+
+.workspace-button-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.workspace-actions button,
+.workspace-button-row button {
+  min-height: 30px;
+  white-space: nowrap;
+}
+
+.session-search,
+.snippet-form label,
+.snippet-card label {
+  display: grid;
+  gap: 5px;
+}
+
+.session-search {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--panel);
+  padding: 10px;
+}
+
+.session-search span,
+.snippet-form label span,
+.snippet-card label span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.session-search small,
+.snippet-form small,
+.snippet-card small {
+  justify-self: end;
+}
+
+.snippet-card {
+  display: grid;
+  gap: 9px;
+}
+
+.snippet-list {
+  min-height: 0;
+  overflow: auto;
+  padding-right: 2px;
+}
+
+.snippet-text {
+  color: var(--text);
+  font-weight: 700;
+  overflow-wrap: anywhere;
+}
+
+.note {
+  border-left: 3px solid var(--accent);
+  color: #4b463f;
+  padding-left: 8px;
+  overflow-wrap: anywhere;
+}
+
+.citation-missing {
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fbfaf7;
+  padding: 8px;
+}
+
+.citation-missing {
+  display: block;
+}
+
+.citation-missing span {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.keywords span {
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: #194d57;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 7px;
+}
+
+.snippet-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.snippet-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 6px;
+}
+
+.empty-state {
+  color: var(--muted);
+  display: grid;
+  gap: 4px;
+  text-align: center;
+}
+
+@media (max-width: 430px) {
+  .trailhead-shell {
+    grid-template-columns: 1fr;
+  }
+
+  .session-rail {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+    max-height: 42svh;
+  }
+
+  .workspace {
+    min-height: 58svh;
+  }
+}

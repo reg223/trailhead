@@ -1,0 +1,13 @@
+{
+  // "extends": "@sveltejs/vite-plugin-svelte/tsconfig.json",
+  "compilerOptions": {
+    "composite": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "skipLibCheck": true,
+    "types": ["chrome", "vite/client"], // <--- ADD IT HERE
+    "strict": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.svelte"]
+}
