@@ -341,6 +341,31 @@
     throw new Error('Screenshot is too large. Use an image under 1 MB after compression.');
   }
 
+  async function setScreenshotFromFile(file: File) {
+    screenshotError = '';
+
+    try {
+      const screenshot = await compressScreenshot(file);
+      screenshotDataUrl = screenshot.dataUrl;
+      screenshotMimeType = screenshot.mimeType;
+    } catch (error) {
+      screenshotDataUrl = '';
+      screenshotMimeType = '';
+      screenshotError = error instanceof Error ? error.message : 'Could not process screenshot.';
+      throw error;
+    }
+  }
+
+  function getClipboardImageFile(event: ClipboardEvent) {
+    const item = Array.from(event.clipboardData?.items ?? []).find((clipboardItem) => clipboardItem.type.startsWith('image/'));
+
+    if (item) {
+      return item.getAsFile();
+    }
+
+    return Array.from(event.clipboardData?.files ?? []).find((file) => file.type.startsWith('image/')) ?? null;
+  }
+
   async function handleScreenshotChange(event: Event) {
     const input = event.currentTarget as HTMLInputElement;
     const file = input.files?.[0];
@@ -353,14 +378,26 @@
     }
 
     try {
-      const screenshot = await compressScreenshot(file);
-      screenshotDataUrl = screenshot.dataUrl;
-      screenshotMimeType = screenshot.mimeType;
+      await setScreenshotFromFile(file);
     } catch (error) {
-      screenshotDataUrl = '';
-      screenshotMimeType = '';
-      screenshotError = error instanceof Error ? error.message : 'Could not process screenshot.';
       input.value = '';
+    }
+  }
+
+  async function handleScreenshotPaste(event: ClipboardEvent) {
+    const file = getClipboardImageFile(event);
+
+    if (!file) {
+      return;
+    }
+
+    event.preventDefault();
+    manualEntryOpen = true;
+
+    try {
+      await setScreenshotFromFile(file);
+    } catch {
+      // setScreenshotFromFile already updates the visible error state.
     }
   }
 
@@ -658,12 +695,14 @@
 
   onMount(() => {
     refresh();
+    document.addEventListener('paste', handleScreenshotPaste);
     if (typeof chrome !== 'undefined') {
       chrome.runtime?.onMessage.addListener(handleRuntimeMessage);
     }
   });
 
   onDestroy(() => {
+    document.removeEventListener('paste', handleScreenshotPaste);
     if (typeof chrome !== 'undefined') {
       chrome.runtime?.onMessage.removeListener(handleRuntimeMessage);
     }

@@ -183,6 +183,23 @@ small,
   margin: 0;
 }
 
+.snippet-form {
+  flex: 0 1 auto;
+  max-height: min(520px, calc(100svh - 116px));
+  min-height: 0;
+  overflow: auto;
+  padding-right: 8px;
+}
+
+.snippet-form .button-row {
+  position: sticky;
+  bottom: -10px;
+  margin: 0 -8px -10px 0;
+  border-top: 1px solid var(--border);
+  background: var(--panel);
+  padding: 8px 0 10px;
+}
+
 .session-list {
   align-content: start;
   flex: 1 1 auto;
@@ -400,6 +417,10 @@ small,
   border-radius: 6px;
   object-fit: contain;
   background: #fff;
+}
+
+.snippet-form .screenshot-preview img {
+  max-height: 170px;
 }
 
 .form-error {
